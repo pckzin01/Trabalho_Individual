@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -20,12 +21,12 @@ public class Livro {
 	
 	@NotBlank(message = "O campo Titulo precisa ser preenchido")
 	@Size(max = 100, message = "O campo Titulo pode ter no máximo {max} e no mínimo {min} caracteres")
-	@Column
+	@Column(nullable = false, length = 100)
 	private String titulo;
 	
-	@NotBlank(message = "O campo Quantidade de Paginas precisa ser preenchido")
-	@Column
-	private int qtdPagina;
+	@NotNull(message = "O campo Quantidade de Paginas precisa ser preenchido")
+	@Column(nullable = false)
+	private Integer qtdPagina;
 	
 	@Embedded
 	private Publicacao publicacao;
@@ -46,11 +47,11 @@ public class Livro {
 		this.titulo = titulo;
 	}
 
-	public int getQtdPagina() {
+	public Integer getQtdPagina() {
 		return qtdPagina;
 	}
 
-	public void setQtdPagina(int qtdPagina) {
+	public void setQtdPagina(Integer qtdPagina) {
 		this.qtdPagina = qtdPagina;
 	}
 
@@ -70,7 +71,13 @@ public class Livro {
 		Livro other = (Livro) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
+	public Publicacao getPublicacao() {
+		return publicacao;
+	}
+
+	public void setPublicacao(Publicacao publicacao) {
+		this.publicacao = publicacao;
+	}
 	
 }
