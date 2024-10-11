@@ -48,9 +48,17 @@ public class LivroController {
 		livro = lr.save(livro);
 		return livro;
 	}
+	
+	@PostMapping("/varios")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<Livro> inserirVarios(@Valid @RequestBody List<Livro> livros) {
+	    livros = lr.saveAll(livros);
+	    return livros;
+	}
+
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Livro> alterar (@PathVariable Long id, @RequestBody Livro livro){
+	public ResponseEntity<Livro> alterar (@PathVariable Long id, @Valid @RequestBody Livro livro){
 		if (!lr.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
