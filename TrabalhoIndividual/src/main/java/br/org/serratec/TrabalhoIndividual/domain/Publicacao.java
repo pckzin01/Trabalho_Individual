@@ -3,22 +3,23 @@ package br.org.serratec.TrabalhoIndividual.domain;
 import java.time.LocalDate;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 
 @Embeddable
 public class Publicacao {
 
+	@Size(max = 90)
+	@NotBlank(message = "O campo Autor não pode estar vazio")
 	private String autor;
 	
+	@NotNull(message = "O campo Data Publicação não pode ser nulo")
 	private LocalDate dataPublicacao;
 	
+	@NotBlank(message = "O campo Editora não pode estar vazio")
 	private String editora;
-
-	public Publicacao(String autor, LocalDate dataPublicacao, String editora) {
-		super();
-		this.autor = autor;
-		this.dataPublicacao = dataPublicacao;
-		this.editora = editora;
-	}
 
 	public String getAutor() {
 		return autor;
@@ -43,7 +44,4 @@ public class Publicacao {
 	public void setEditora(String editora) {
 		this.editora = editora;
 	}
-	
-	
-	
 }

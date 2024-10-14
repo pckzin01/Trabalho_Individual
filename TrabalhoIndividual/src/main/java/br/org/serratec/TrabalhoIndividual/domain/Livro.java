@@ -1,15 +1,14 @@
 package br.org.serratec.TrabalhoIndividual.domain;
 
 import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -18,19 +17,30 @@ public class Livro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank(message = "O campo Titulo precisa ser preenchido")
 	@Size(max = 100, message = "O campo Titulo pode ter no máximo {max} e no mínimo {min} caracteres")
 	@Column(nullable = false, length = 100)
 	private String titulo;
-	
-	@NotNull(message = "O campo Quantidade de Paginas precisa ser preenchido")
+
+	@NotBlank(message = "O campo Quantidade de Paginas não pode ser nulo")
 	@Column(nullable = false)
-	private Integer qtdPagina;
-	
+	private String qtdPaginas;
+
+	@Valid
 	@Embedded
 	private Publicacao publicacao;
+	
+	public Livro () {}
 
+	public Livro(Long id, String titulo, String qtdPaginas, Publicacao publicacao) {
+		super();
+		this.id = id;
+		this.titulo = titulo;
+		this.qtdPaginas = qtdPaginas;
+		this.publicacao = publicacao;
+	}
+ 
 	public Long getId() {
 		return id;
 	}
@@ -47,12 +57,12 @@ public class Livro {
 		this.titulo = titulo;
 	}
 
-	public Integer getQtdPagina() {
-		return qtdPagina;
+	public String getQtdPaginas() {
+		return qtdPaginas;
 	}
 
-	public void setQtdPagina(Integer qtdPagina) {
-		this.qtdPagina = qtdPagina;
+	public void setQtdPaginas(String qtdPaginas) {
+		this.qtdPaginas = qtdPaginas;
 	}
 
 	@Override
@@ -79,5 +89,5 @@ public class Livro {
 	public void setPublicacao(Publicacao publicacao) {
 		this.publicacao = publicacao;
 	}
-	
+
 }
